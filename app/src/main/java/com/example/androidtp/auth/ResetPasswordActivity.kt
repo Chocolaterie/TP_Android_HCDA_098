@@ -40,7 +40,7 @@ class ResetPasswordActivity : ComponentActivity() {
 
 @Composable
 fun ResetPasswordPage() {
-    EniPage {
+    EniPage(backgroundId = R.drawable.mobile_background_2) {
         Column(modifier = Modifier.padding(40.dp).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             TitlePage(text = stringResource(R.string.app_title_reset_password), verticalPadding = 60.dp)

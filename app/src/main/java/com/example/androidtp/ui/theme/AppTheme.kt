@@ -1,5 +1,6 @@
 package com.example.androidtp.ui.theme
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -148,12 +149,12 @@ fun SecondaryTextInfo(message: String){
 }
 
 @Composable
-fun EniPage(content: @Composable () -> Unit){
+fun EniPage(@DrawableRes backgroundId: Int = R.drawable.mobile_background, content: @Composable () -> Unit){
     AndroidTPTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Box(modifier = Modifier.padding(innerPadding)) {
                 Image(
-                    painter = painterResource(R.drawable.mobile_background),
+                    painter = painterResource(backgroundId),
                     contentDescription = "",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
