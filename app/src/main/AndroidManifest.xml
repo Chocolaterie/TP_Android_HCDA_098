@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidTP"
         tools:targetApi="31">
+        <activity android:name=".auth.SignUpActivity"></activity>
+        <activity android:name=".auth.ResetPasswordActivity"></activity>
         <activity
-            android:name=".auth.MainActivity"
+            android:name=".auth.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidTP">

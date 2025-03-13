@@ -87,8 +87,8 @@ fun EniTextField(hintText : String = "", modifier: Modifier = Modifier, icon: Im
 }
 
 @Composable
-fun EniButton(buttonText : String, modifier: Modifier = Modifier){
-    Button(onClick = {},
+fun EniButton(buttonText : String, modifier: Modifier = Modifier, onClick: () -> Unit = {}){
+    Button(onClick = onClick,
         border = BorderStroke(2.dp, Color(0x55FFFFFF)),
         contentPadding = PaddingValues(),
         modifier = modifier.fillMaxWidth(),

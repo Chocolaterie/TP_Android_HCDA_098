@@ -17,9 +17,11 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
 import com.example.androidtp.ui.theme.EniButton
 import com.example.androidtp.ui.theme.EniPage
@@ -40,6 +42,8 @@ class ResetPasswordActivity : ComponentActivity() {
 
 @Composable
 fun ResetPasswordPage() {
+    val context = LocalContext.current;
+
     EniPage(backgroundId = R.drawable.mobile_background_2) {
         Column(modifier = Modifier.padding(40.dp).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -48,7 +52,10 @@ fun ResetPasswordPage() {
                 EniTextField(hintText = stringResource(R.string.app_field_email_hint), icon = Icons.Default.Email)
             }
             WrapPadding {
-                EniButton(buttonText = stringResource(R.string.app_btn_send))
+                EniButton(buttonText = stringResource(R.string.app_btn_send),
+                    onClick = {
+                        AppViewHelper.openActivity(context, LoginActivity::class)
+                    })
             }
             Spacer(modifier = Modifier.weight(1f))
             SecondaryTextInfo(stringResource(R.string.app_msg_info_dont_forget_password))
