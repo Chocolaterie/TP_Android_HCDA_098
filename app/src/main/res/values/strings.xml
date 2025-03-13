@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">AndroidTP</string>
     <string name="app_title_login">Login</string>
+    <string name="app_title_signup">Sign Up</string>
     <string name="app_btn_login">Connection</string>
+    <string name="app_btn_submit">Submit</string>
     <string name="app_btn_register_now">Register now !</string>
     <string name="app_btn_forget_password">Forget password</string>
     <string name="app_field_email_hint">Email</string>
+    <string name="app_field_pseudo_hint">Pseudo</string>
     <string name="app_field_password_hint">Password</string>
+    <string name="app_field_password_confirm_hint">Password Confirm</string>
+    <string name="app_field_city_hint">City</string>
+    <string name="app_field_city_code_hint">City Code</string>
+    <string name="app_field_phone_hint">Phone</string>
     <string name="app_msg_ask_have_account">Don\'t have account ?</string>
     <string name="app_msg_info_please_aware_credentials">Please be aware when you enter credentials in login form</string>
 </resources>
