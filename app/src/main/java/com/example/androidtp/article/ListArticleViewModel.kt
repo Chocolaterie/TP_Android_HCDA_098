@@ -9,7 +9,7 @@ class ListArticleViewModel : ViewModel() {
     // Une liste d'article
     var articles = MutableStateFlow<List<Article>>(
         mutableListOf(
-            Article("GTX 5080", "Todo"),
-            Article("Pizza Ananas", "Meilleur pizza au monde"))
+            Article("GTX 5080", "Todo", "https://en.meming.world/images/en/b/b1/Dust_Storm_Dog.jpg"),
+            Article("Pizza Ananas", "Meilleur pizza au monde", "https://en.meming.world/images/en/b/b1/Dust_Storm_Dog.jpg"))
     )
 }
