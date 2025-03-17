@@ -14,7 +14,6 @@ class AppViewHelper {
             // Ouvrir l'ativity
             context.startActivity(intent)
         }
-
     }
 
 }
