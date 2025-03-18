@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,11 +23,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.androidtp.R
+import com.example.androidtp.ui.theme.EniButton
 import com.example.androidtp.ui.theme.EniPage
 import com.example.androidtp.ui.theme.TitlePage
 import com.example.androidtp.ui.theme.WrapPadding
@@ -57,6 +55,9 @@ fun ListArticlePage(viewModel: ListArticleViewModel) {
     EniPage {
         Column(modifier = Modifier.padding(30.dp)) {
             TitlePage(text = stringResource(R.string.app_title_articles), verticalPadding = 20.dp)
+            EniButton(buttonText = "Recharger les articles", onClick = {
+                viewModel.reloadArticles()
+            })
             LazyColumn {
                 items(articlesState) { article ->
                     WrapPadding {
@@ -76,7 +77,7 @@ fun ListArticlePage(viewModel: ListArticleViewModel) {
                                         color = Color.Black, fontWeight = FontWeight.Bold
                                     )
                                     Text(
-                                        text = "${article.description}",
+                                        text = "${article.desc}",
                                         modifier = Modifier.fillMaxWidth(),
                                         color = Color.Black,
                                     )
