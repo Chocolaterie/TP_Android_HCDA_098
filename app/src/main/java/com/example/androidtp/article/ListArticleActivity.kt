@@ -1,5 +1,6 @@
 package com.example.androidtp.article
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,12 +36,14 @@ import com.example.androidtp.ui.theme.WrapPadding
 
 class ListArticleActivity : ComponentActivity() {
 
-    // Déclarer un view model
-    var viewModel = ListArticleViewModel()
+    // Instancier un view model
+    lateinit var viewModel : ListArticleViewModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        viewModel = ListArticleViewModel(application)
 
         setContent {
             ListArticlePage(viewModel)
@@ -94,9 +98,11 @@ fun ListArticlePage(viewModel: ListArticleViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun ListArticlePreview() {
+    // Récupérer le context d'application dans le Preview de l'IDE
+    val application = LocalContext.current.applicationContext as Application
 
     // Déclarer un view model
-    var viewModel = ListArticleViewModel()
+    var viewModel = ListArticleViewModel(application)
 
     ListArticlePage(viewModel)
 }

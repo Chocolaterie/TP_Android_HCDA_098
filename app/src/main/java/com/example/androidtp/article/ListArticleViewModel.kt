@@ -1,21 +1,26 @@
 package com.example.androidtp.article
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidtp.article.Article
+import com.example.androidtp.R
 import com.example.androidtp.helpers.AppDialogHelpers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class ListArticleViewModel : ViewModel() {
+class ListArticleViewModel(application: Application) : AndroidViewModel(application) {
 
     // Une liste d'article
     var articles = MutableStateFlow<List<Article>>(mutableListOf())
 
     fun reloadArticles() {
 
-        AppDialogHelpers.get().showDialog("Chargement des articles en cours...")
+        // Récupérer le message traduit
+        val message = getApplication<Application>().getString(R.string.app_msg_loading_articles)
+
+        // Afficher la popup avec message traduit
+        AppDialogHelpers.get().showDialog(message)
 
         viewModelScope.launch { // tâche async
 
