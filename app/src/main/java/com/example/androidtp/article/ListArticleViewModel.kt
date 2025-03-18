@@ -27,13 +27,24 @@ class ListArticleViewModel(application: Application) : AndroidViewModel(applicat
             // Simuler 1 second de lag en dev pour avoir le temps de voir la popup
             delay(1000)
 
+            // Maintenant ca devient :
+            // Code
+            // Message
+            // Data : List<Article>
             val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
-
-            articles.value = apiResponse
 
             // Bon : Tache fini
             // Fermer l'ecran de chargement
             AppDialogHelpers.get().closeDialog()
+
+            // Afficher le message popup
+            // TODO : Pour le moment la popup = message console
+            println(apiResponse.message)
+
+            // Tester si OK : 200
+            if (apiResponse.code.equals("200")){
+                articles.value = apiResponse.data!!
+            }
         }
     }
 }
