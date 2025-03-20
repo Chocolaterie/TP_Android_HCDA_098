@@ -71,10 +71,12 @@ fun ConditionalIcon(icon: ImageVector?) {
 }
 
 @Composable
-fun EniTextField(hintText : String = "", modifier: Modifier = Modifier, icon: ImageVector? = null){
-    TextField(value = "", onValueChange = {},
+fun EniTextField(hintText : String = "", modifier: Modifier = Modifier, icon: ImageVector? = null,
+                 value : String = "", onValueChange: (String) -> Unit = {}){
+    TextField(value = value, onValueChange = onValueChange,
         modifier = modifier.fillMaxWidth(),
         leadingIcon = { ConditionalIcon(icon) },
+        textStyle = TextStyle(color = Color.White),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color(0x66000000),
             focusedContainerColor = Color(0x99000000),
