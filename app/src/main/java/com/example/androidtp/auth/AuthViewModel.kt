@@ -1,5 +1,6 @@
 package com.example.androidtp.auth
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidtp.helpers.AppDialogHelpers
@@ -45,6 +46,37 @@ class AuthViewModel : ViewModel() {
                 // Afficher le message popup erreur
                 // TODO : Pour le moment la popup = message console
                 println(apiResponse.message)
+            }
+        }
+    }
+
+    fun callResetPasswordRequest() {
+        // Afficher la popup avec message traduit
+        AppDialogHelpers.get().showDialog("Demande réinitialisation mot de passe")
+
+        // tâche async
+        viewModelScope.launch {
+
+            // Simuler 1 second de lag en dev pour avoir le temps de voir la popup
+            delay(1000)
+
+            // Forcer a vider tout les champs sauf email
+            loginRequestData.value.password = null;
+
+            // Appel api /login avec dans le body mon loginRequestData (donc email)
+            val apiResponse = AuthService.AuthApi.authService.resetPassword(loginRequestData.value)
+
+            // Fermer la popup de chargement
+            AppDialogHelpers.get().closeDialog()
+
+            // Afficher le message popup succés
+            // TODO : Pour le moment la popup = message console
+            println(apiResponse.message)
+
+            // Tester si OK : 200
+            if (apiResponse.code.equals("200")){
+                // Afficher le new password dans la console
+                println(apiResponse.data!!)
             }
         }
     }

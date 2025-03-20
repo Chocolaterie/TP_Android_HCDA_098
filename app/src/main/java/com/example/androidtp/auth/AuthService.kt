@@ -16,6 +16,9 @@ interface AuthService {
     @POST("login")
     suspend fun login(@Body loginRequestData: LoginRequestData) : ResponseAPI<String>
 
+    @POST("reset-password")
+    suspend fun resetPassword(@Body loginRequestData: LoginRequestData) : ResponseAPI<String>
+
     object AuthApi {
         val authService : AuthService by lazy { retrofit.create(AuthService::class.java) }
     }

@@ -1,4 +1,4 @@
 package com.example.androidtp.auth
 
-data class LoginRequestData(var email: String = "", var password : String = "") {
+data class LoginRequestData(var email: String = "isaac@gmail.com", var password : String? = "password") {
 }

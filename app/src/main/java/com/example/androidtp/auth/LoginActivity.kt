@@ -77,7 +77,7 @@ fun LoginPage(viewModel: AuthViewModel) {
             }
             WrapPadding {
                 EniTextField(
-                    value = loginRequestDataState.password,
+                    value = loginRequestDataState.password!!,
                     onValueChange =  { value -> viewModel.loginRequestData.value = viewModel.loginRequestData.value.copy(password = value)},
                     hintText = stringResource(R.string.app_field_password_hint),
                     icon = Icons.Default.Lock
