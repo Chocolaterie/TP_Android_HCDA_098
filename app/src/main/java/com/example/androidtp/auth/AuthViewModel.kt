@@ -14,6 +14,9 @@ class AuthViewModel : ViewModel() {
     // Et aussi à envoyer en JSON dans l'API
     var loginRequestData = MutableStateFlow(LoginRequestData())
 
+    // Les informations d'inscription
+    var signUpRequestData = MutableStateFlow(SignUpRequestData())
+
     fun callLoginRequest(onLoginSuccess: () -> Unit = {}) {
         // Afficher la popup avec message traduit
         AppDialogHelpers.get().showDialog("Tentative de connexion en cours")
@@ -77,6 +80,34 @@ class AuthViewModel : ViewModel() {
             if (apiResponse.code.equals("200")){
                 // Afficher le new password dans la console
                 println(apiResponse.data!!)
+            }
+        }
+    }
+
+    fun callsignUpRequest(onSignUpSuccess: () -> Unit = {}) {
+        // Afficher la popup avec message traduit
+        AppDialogHelpers.get().showDialog("Inscription en cours")
+
+        // tâche async
+        viewModelScope.launch {
+
+            // Simuler 1 second de lag en dev pour avoir le temps de voir la popup
+            delay(1000)
+
+            // Appel api /login avec dans le body mon loginRequestData (donc email)
+            val apiResponse = AuthService.AuthApi.authService.signUp(signUpRequestData.value)
+
+            // Fermer la popup de chargement
+            AppDialogHelpers.get().closeDialog()
+
+            // Afficher le message popup succés
+            // TODO : Pour le moment la popup = message console
+            println(apiResponse.message)
+
+            // Tester si OK : 200
+            if (apiResponse.code.equals("200")){
+                // Callback
+                onSignUpSuccess()
             }
         }
     }
