@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
 import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
+import com.example.androidtp.auth.AuthService
+import com.example.androidtp.auth.AuthViewModel
 import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
 import kotlinx.coroutines.delay
@@ -36,7 +38,8 @@ class ListArticleViewModel() : ViewModel() {
             // Message
             // Data : List<Article>
             try {
-                val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
+                // Appel api avec le bearer token stocker en static dans kotlin
+                val apiResponse = ArticleService.ArticleApi.articleService.getArticles("Bearer ${AuthService.token}")
 
                 // Bon : Tache fini
                 // Fermer l'ecran de chargement
