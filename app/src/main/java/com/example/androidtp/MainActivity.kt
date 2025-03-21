@@ -20,23 +20,18 @@ import com.example.androidtp.auth.SignUpPage
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var authViewModel : AuthViewModel;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Instancier les view models
-        authViewModel = AuthViewModel()
-
         enableEdgeToEdge()
         setContent {
-            MainActivityPage(authViewModel)
+            MainActivityPage()
         }
     }
 }
 
 @Composable
-fun MainActivityPage(authViewModel : AuthViewModel) {
+fun MainActivityPage() {
 
     val navController = rememberNavController()
 
@@ -44,9 +39,9 @@ fun MainActivityPage(authViewModel : AuthViewModel) {
         navController = navController,
         startDestination = "login"){
 
-        composable("login") { LoginPage(authViewModel, navController) }
-        composable("signUp") { SignUpPage(authViewModel, navController) }
-        composable("resetPassword") { ResetPasswordPage(authViewModel) }
+        composable("login") { LoginPage(navController) }
+        composable("signUp") { SignUpPage(navController) }
+        composable("resetPassword") { ResetPasswordPage() }
     }
 }
 
@@ -54,8 +49,5 @@ fun MainActivityPage(authViewModel : AuthViewModel) {
 @Preview
 fun MainActivityPagePreview() {
 
-    // Instancier les view models
-    val authViewModel = AuthViewModel()
-
-    MainActivityPage(authViewModel)
+    MainActivityPage()
 }

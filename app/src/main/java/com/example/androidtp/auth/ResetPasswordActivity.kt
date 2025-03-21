@@ -24,7 +24,10 @@ import com.example.androidtp.ui.theme.TitlePage
 import com.example.androidtp.ui.theme.WrapPadding
 
 @Composable
-fun ResetPasswordPage(viewModel: AuthViewModel) {
+fun ResetPasswordPage() {
+
+    val viewModel = AuthViewModel.get();
+
     // Ecouter en temps réel le changement de loginRequestData
     val loginRequestDataState by viewModel.loginRequestData.collectAsState()
 
@@ -56,7 +59,5 @@ fun ResetPasswordPage(viewModel: AuthViewModel) {
 @Preview
 fun ResetPasswordPreview(){
 
-    var viewModel = AuthViewModel()
-
-    ResetPasswordPage(viewModel)
+    ResetPasswordPage()
 }

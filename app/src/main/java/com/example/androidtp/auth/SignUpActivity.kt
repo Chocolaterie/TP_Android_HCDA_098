@@ -25,8 +25,10 @@ import com.example.androidtp.ui.theme.WrapPadding
 
 
 @Composable
-fun SignUpPage(viewModel : AuthViewModel, navController: NavHostController) {
-    // Ecouter en temps réel le changement de signUpRequestData
+fun SignUpPage(navController: NavHostController) {
+    // Ecouter en temps réel le changement de signUpRequestData*
+    val viewModel = AuthViewModel.get();
+
     val signUpRequestDataState by viewModel.signUpRequestData.collectAsState()
 
     // Récupérer le context de l'app
@@ -81,7 +83,7 @@ fun SignUpPage(viewModel : AuthViewModel, navController: NavHostController) {
             WrapPadding {
                 EniButton(buttonText = stringResource(R.string.app_btn_submit),
                     onClick = {
-                        viewModel.callsignUpRequest(onSignUpSuccess = {
+                        AuthViewModel.get().callsignUpRequest(onSignUpSuccess = {
                             navController.navigate("login")
                         })
                     })
@@ -96,7 +98,5 @@ fun SignUpPreview(){
 
     val navController = rememberNavController()
 
-    var viewModel = AuthViewModel()
-
-    SignUpPage(viewModel, navController)
+    SignUpPage(navController)
 }

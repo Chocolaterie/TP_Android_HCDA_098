@@ -32,7 +32,9 @@ import com.example.androidtp.ui.theme.TitlePage
 import com.example.androidtp.ui.theme.WrapPadding
 
 @Composable
-fun LoginPage(viewModel: AuthViewModel, navController: NavHostController) {
+fun LoginPage(navController: NavHostController) {
+    val viewModel = AuthViewModel.get();
+
     // Ecouter en temps réel le changement de loginRequestData
     val loginRequestDataState by viewModel.loginRequestData.collectAsState()
 
@@ -98,7 +100,5 @@ fun LoginPage(viewModel: AuthViewModel, navController: NavHostController) {
 fun LoginPreview() {
     val navController = rememberNavController()
 
-    var viewModel = AuthViewModel()
-
-    LoginPage(viewModel, navController)
+    LoginPage(navController)
 }

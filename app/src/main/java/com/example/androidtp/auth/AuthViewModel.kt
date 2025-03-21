@@ -12,6 +12,15 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
+    // Singleton du AuthViewModel
+    companion object {
+        val instance : AuthViewModel by lazy { AuthViewModel() }
+
+        fun get() : AuthViewModel {
+            return instance;
+        }
+    }
+
     // Servira à lier les donneés dans les champs
     // Et aussi à envoyer en JSON dans l'API
     var loginRequestData = MutableStateFlow(LoginRequestData())
@@ -109,13 +118,16 @@ class AuthViewModel : ViewModel() {
                 // Fermer la popup de chargement
                 AppDialogHelpers.get().closeDialog()
 
-                // Afficher le message popup succés
-                AppAlertDialogHelpers.get().show(apiResponse.message)
-
                 // Tester si OK : 200
                 if (apiResponse.code.equals("200")) {
-                    // Callback
-                    onSignUpSuccess()
+                    // Afficher le message popup succés
+                    AppAlertDialogHelpers.get().show(apiResponse.message, onClose = {
+                        onSignUpSuccess()
+                    })
+                }
+                else {
+                    // Afficher le message popup error
+                    AppAlertDialogHelpers.get().show(apiResponse.message)
                 }
             } catch (e: Exception) {
                 AppViewHelper.catchDialogHelper("Erreur inconnue")
