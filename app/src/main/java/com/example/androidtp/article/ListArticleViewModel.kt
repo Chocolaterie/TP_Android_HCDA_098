@@ -2,6 +2,7 @@ package com.example.androidtp.article
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidtp.R
 import com.example.androidtp.helpers.AppDialogHelpers
@@ -9,7 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class ListArticleViewModel(application: Application) : AndroidViewModel(application) {
+class ListArticleViewModel() : ViewModel() {
 
     // Une liste d'article
     var articles = MutableStateFlow<List<Article>>(mutableListOf())
@@ -17,7 +18,7 @@ class ListArticleViewModel(application: Application) : AndroidViewModel(applicat
     fun reloadArticles() {
 
         // Récupérer le message traduit
-        val message = getApplication<Application>().getString(R.string.app_msg_loading_articles)
+        var message = "Chargement des articles en cours..."
 
         // Afficher la popup avec message traduit
         AppDialogHelpers.get().showDialog(message)

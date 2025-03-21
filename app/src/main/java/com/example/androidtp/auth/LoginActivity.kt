@@ -1,9 +1,5 @@
 package com.example.androidtp.auth
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -23,10 +19,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androidtp.AppViewHelper
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.androidtp.R
-import com.example.androidtp.article.ListArticleActivity
-import com.example.androidtp.article.ListArticlePage
 import com.example.androidtp.ui.theme.EniButton
 import com.example.androidtp.ui.theme.EniPage
 import com.example.androidtp.ui.theme.EniTextField
@@ -34,21 +29,8 @@ import com.example.androidtp.ui.theme.SecondaryTextInfo
 import com.example.androidtp.ui.theme.TitlePage
 import com.example.androidtp.ui.theme.WrapPadding
 
-class LoginActivity : ComponentActivity() {
-
-    var viewModel = AuthViewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            LoginPage(viewModel)
-        }
-    }
-}
-
 @Composable
-fun LoginPage(viewModel: AuthViewModel) {
+fun LoginPage(viewModel: AuthViewModel, navController: NavHostController) {
     // Ecouter en temps réel le changement de loginRequestData
     val loginRequestDataState by viewModel.loginRequestData.collectAsState()
 
@@ -85,14 +67,14 @@ fun LoginPage(viewModel: AuthViewModel) {
             }
             WrapPadding {
                 EniButton(buttonText = stringResource(R.string.app_btn_forget_password), onClick = {
-                    AppViewHelper.openActivity(context, ResetPasswordActivity::class)
+                    navController.navigate("resetPassword")
                 })
             }
             WrapPadding {
                 EniButton(buttonText = stringResource(R.string.app_btn_login), onClick = {
                     viewModel.callLoginRequest(onLoginSuccess = {
                         // ouvrir la page list article
-                        AppViewHelper.openActivity(context, ListArticleActivity::class)
+                        navController.navigate("listArticle")
                     })
                 })
             }
@@ -102,7 +84,7 @@ fun LoginPage(viewModel: AuthViewModel) {
                 EniButton(
                     buttonText = stringResource(R.string.app_btn_register_now), onClick =
                         {
-                            AppViewHelper.openActivity(context, SignUpActivity::class)
+                            navController.navigate("signUp")
                         })
             }
         }
@@ -112,8 +94,9 @@ fun LoginPage(viewModel: AuthViewModel) {
 @Preview(showBackground = true)
 @Composable
 fun LoginPreview() {
+    val navController = rememberNavController()
 
     var viewModel = AuthViewModel()
 
-    LoginPage(viewModel)
+    LoginPage(viewModel, navController)
 }

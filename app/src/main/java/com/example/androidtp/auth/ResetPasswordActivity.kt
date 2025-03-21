@@ -1,19 +1,11 @@
 package com.example.androidtp.auth
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,7 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
 import com.example.androidtp.ui.theme.EniButton
 import com.example.androidtp.ui.theme.EniPage
@@ -31,19 +22,6 @@ import com.example.androidtp.ui.theme.EniTextField
 import com.example.androidtp.ui.theme.SecondaryTextInfo
 import com.example.androidtp.ui.theme.TitlePage
 import com.example.androidtp.ui.theme.WrapPadding
-
-class ResetPasswordActivity : ComponentActivity() {
-
-    var viewModel = AuthViewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            ResetPasswordPage(viewModel)
-        }
-    }
-}
 
 @Composable
 fun ResetPasswordPage(viewModel: AuthViewModel) {
@@ -66,7 +44,6 @@ fun ResetPasswordPage(viewModel: AuthViewModel) {
                 EniButton(buttonText = stringResource(R.string.app_btn_send),
                     onClick = {
                         viewModel.callResetPasswordRequest()
-                        //AppViewHelper.openActivity(context, LoginActivity::class)
                     })
             }
             Spacer(modifier = Modifier.weight(1f))
