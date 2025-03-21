@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.network.HttpException
 import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
 import com.example.androidtp.helpers.AppAlertDialogHelpers

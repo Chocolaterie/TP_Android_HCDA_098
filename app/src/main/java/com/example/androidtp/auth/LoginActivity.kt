@@ -21,7 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
+import com.example.androidtp.article.ArticleActivity
 import com.example.androidtp.ui.theme.EniButton
 import com.example.androidtp.ui.theme.EniPage
 import com.example.androidtp.ui.theme.EniTextField
@@ -74,7 +76,7 @@ fun LoginPage(viewModel: AuthViewModel, navController: NavHostController) {
                 EniButton(buttonText = stringResource(R.string.app_btn_login), onClick = {
                     viewModel.callLoginRequest(onLoginSuccess = {
                         // ouvrir la page list article
-                        navController.navigate("listArticle")
+                        AppViewHelper.openActivity(context, ArticleActivity::class)
                     })
                 })
             }
