@@ -37,7 +37,7 @@ class AuthViewModel : EniViewModel() {
             onFinish = { apiResponse ->
                 // Tester si OK : 200
                 if (apiResponse.code.equals("200")) {
-                    
+
                     // Stocker le token
                     AuthService.token = apiResponse.data!!
 
