@@ -3,6 +3,7 @@ package com.example.androidtp.auth
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,16 +40,13 @@ class AuthViewModel : ViewModel() {
                 AuthService.token = apiResponse.data!!
 
                 // Afficher le message popup succés
-                // TODO : Pour le moment la popup = message console
-                println(apiResponse.message)
-
-                // TODO : Pour le moment comme pas encore de popup trouver un moyen d'appeler le callback
-                onLoginSuccess()
+                AppAlertDialogHelpers.get().show(apiResponse.message, onClose = {
+                    onLoginSuccess()
+                })
             }
             else {
                 // Afficher le message popup erreur
-                // TODO : Pour le moment la popup = message console
-                println(apiResponse.message)
+                AppAlertDialogHelpers.get().show(apiResponse.message)
             }
         }
     }
@@ -73,8 +71,7 @@ class AuthViewModel : ViewModel() {
             AppDialogHelpers.get().closeDialog()
 
             // Afficher le message popup succés
-            // TODO : Pour le moment la popup = message console
-            println(apiResponse.message)
+            AppAlertDialogHelpers.get().show(apiResponse.message)
 
             // Tester si OK : 200
             if (apiResponse.code.equals("200")){
@@ -101,8 +98,7 @@ class AuthViewModel : ViewModel() {
             AppDialogHelpers.get().closeDialog()
 
             // Afficher le message popup succés
-            // TODO : Pour le moment la popup = message console
-            println(apiResponse.message)
+            AppAlertDialogHelpers.get().show(apiResponse.message)
 
             // Tester si OK : 200
             if (apiResponse.code.equals("200")){

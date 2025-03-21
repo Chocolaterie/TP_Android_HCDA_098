@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidtp.R
+import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,8 +40,7 @@ class ListArticleViewModel() : ViewModel() {
             AppDialogHelpers.get().closeDialog()
 
             // Afficher le message popup
-            // TODO : Pour le moment la popup = message console
-            println(apiResponse.message)
+            AppAlertDialogHelpers.get().show(apiResponse.message)
 
             // Tester si OK : 200
             if (apiResponse.code.equals("200")){

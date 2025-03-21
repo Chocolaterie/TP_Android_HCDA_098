@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidtp.R
+import com.example.androidtp.helpers.AlertDialog
 import com.example.androidtp.helpers.ProgressDialog
 
 val emblemaOne = FontFamily(
@@ -164,6 +165,7 @@ fun EniPage(@DrawableRes backgroundId: Int = R.drawable.mobile_background, conte
                 )
                 content()
                 ProgressDialog()
+                AlertDialog()
             }
         }
     }
