@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidtp.AppViewHelper
 import com.example.androidtp.R
 import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
@@ -33,18 +34,22 @@ class ListArticleViewModel() : ViewModel() {
             // Code
             // Message
             // Data : List<Article>
-            val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
+            try {
+                val apiResponse = ArticleService.ArticleApi.articleService.getArticles()
 
-            // Bon : Tache fini
-            // Fermer l'ecran de chargement
-            AppDialogHelpers.get().closeDialog()
+                // Bon : Tache fini
+                // Fermer l'ecran de chargement
+                AppDialogHelpers.get().closeDialog()
 
-            // Afficher le message popup
-            AppAlertDialogHelpers.get().show(apiResponse.message)
+                // Afficher le message popup
+                AppAlertDialogHelpers.get().show(apiResponse.message)
 
-            // Tester si OK : 200
-            if (apiResponse.code.equals("200")){
-                articles.value = apiResponse.data!!
+                // Tester si OK : 200
+                if (apiResponse.code.equals("200")) {
+                    articles.value = apiResponse.data!!
+                }
+            } catch (e: Exception) {
+                AppViewHelper.catchDialogHelper("Erreur inconnue")
             }
         }
     }

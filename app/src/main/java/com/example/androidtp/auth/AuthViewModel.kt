@@ -3,6 +3,7 @@ package com.example.androidtp.auth
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidtp.AppViewHelper
 import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
 import kotlinx.coroutines.delay
@@ -29,24 +30,28 @@ class AuthViewModel : ViewModel() {
             delay(1000)
 
             // Appel api /login avec dans le body mon loginRequestData (donc email,password)
-            val apiResponse = AuthService.AuthApi.authService.login(loginRequestData.value)
+            try {
 
-            // Fermer la popup de chargement
-            AppDialogHelpers.get().closeDialog()
+                val apiResponse = AuthService.AuthApi.authService.login(loginRequestData.value)
 
-            // Tester si OK : 200
-            if (apiResponse.code.equals("200")){
-                // Stocker le token
-                AuthService.token = apiResponse.data!!
+                // Fermer la popup de chargement
+                AppDialogHelpers.get().closeDialog()
 
-                // Afficher le message popup succés
-                AppAlertDialogHelpers.get().show(apiResponse.message, onClose = {
-                    onLoginSuccess()
-                })
-            }
-            else {
-                // Afficher le message popup erreur
-                AppAlertDialogHelpers.get().show(apiResponse.message)
+                // Tester si OK : 200
+                if (apiResponse.code.equals("200")) {
+                    // Stocker le token
+                    AuthService.token = apiResponse.data!!
+
+                    // Afficher le message popup succés
+                    AppAlertDialogHelpers.get().show(apiResponse.message, onClose = {
+                        onLoginSuccess()
+                    })
+                } else {
+                    // Afficher le message popup erreur
+                    AppAlertDialogHelpers.get().show(apiResponse.message)
+                }
+            } catch (e: Exception) {
+                AppViewHelper.catchDialogHelper("Erreur inconnue")
             }
         }
     }
@@ -64,19 +69,25 @@ class AuthViewModel : ViewModel() {
             // Forcer a vider tout les champs sauf email
             loginRequestData.value.password = null;
 
-            // Appel api /login avec dans le body mon loginRequestData (donc email)
-            val apiResponse = AuthService.AuthApi.authService.resetPassword(loginRequestData.value)
+            try {
+                // Appel api /login avec dans le body mon loginRequestData (donc email)
+                val apiResponse =
+                    AuthService.AuthApi.authService.resetPassword(loginRequestData.value)
 
-            // Fermer la popup de chargement
-            AppDialogHelpers.get().closeDialog()
+                // Fermer la popup de chargement
+                AppDialogHelpers.get().closeDialog()
 
-            // Afficher le message popup succés
-            AppAlertDialogHelpers.get().show(apiResponse.message)
+                // Afficher le message popup succés
+                AppAlertDialogHelpers.get().show(apiResponse.message)
 
-            // Tester si OK : 200
-            if (apiResponse.code.equals("200")){
-                // Afficher le new password dans la console
-                println(apiResponse.data!!)
+                // Tester si OK : 200
+                if (apiResponse.code.equals("200")) {
+                    // Afficher le new password dans la console
+                    println(apiResponse.data!!)
+                }
+
+            } catch (e: Exception) {
+                AppViewHelper.catchDialogHelper("Erreur inconnue")
             }
         }
     }
@@ -91,19 +102,23 @@ class AuthViewModel : ViewModel() {
             // Simuler 1 second de lag en dev pour avoir le temps de voir la popup
             delay(1000)
 
-            // Appel api /login avec dans le body mon loginRequestData (donc email)
-            val apiResponse = AuthService.AuthApi.authService.signUp(signUpRequestData.value)
+            try {
+                // Appel api /login avec dans le body mon loginRequestData (donc email)
+                val apiResponse = AuthService.AuthApi.authService.signUp(signUpRequestData.value)
 
-            // Fermer la popup de chargement
-            AppDialogHelpers.get().closeDialog()
+                // Fermer la popup de chargement
+                AppDialogHelpers.get().closeDialog()
 
-            // Afficher le message popup succés
-            AppAlertDialogHelpers.get().show(apiResponse.message)
+                // Afficher le message popup succés
+                AppAlertDialogHelpers.get().show(apiResponse.message)
 
-            // Tester si OK : 200
-            if (apiResponse.code.equals("200")){
-                // Callback
-                onSignUpSuccess()
+                // Tester si OK : 200
+                if (apiResponse.code.equals("200")) {
+                    // Callback
+                    onSignUpSuccess()
+                }
+            } catch (e: Exception) {
+                AppViewHelper.catchDialogHelper("Erreur inconnue")
             }
         }
     }
