@@ -2,8 +2,12 @@ package com.example.androidtp
 
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.viewModelScope
+import com.example.androidtp.auth.AuthService
 import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class AppViewHelper {

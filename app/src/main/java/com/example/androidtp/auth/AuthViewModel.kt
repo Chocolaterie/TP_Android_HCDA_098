@@ -6,17 +6,18 @@ import androidx.lifecycle.viewModelScope
 import com.example.androidtp.AppViewHelper
 import com.example.androidtp.helpers.AppAlertDialogHelpers
 import com.example.androidtp.helpers.AppDialogHelpers
+import com.example.androidtp.helpers.EniViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel : EniViewModel() {
 
     // Singleton du AuthViewModel
     companion object {
-        val instance : AuthViewModel by lazy { AuthViewModel() }
+        val instance: AuthViewModel by lazy { AuthViewModel() }
 
-        fun get() : AuthViewModel {
+        fun get(): AuthViewModel {
             return instance;
         }
     }
@@ -29,25 +30,14 @@ class AuthViewModel : ViewModel() {
     var signUpRequestData = MutableStateFlow(SignUpRequestData())
 
     fun callLoginRequest(onLoginSuccess: () -> Unit = {}) {
-        // Afficher la popup avec message traduit
-        AppDialogHelpers.get().showDialog("Tentative de connexion en cours")
 
-        // tâche async
-        viewModelScope.launch {
-
-            // Simuler 1 second de lag en dev pour avoir le temps de voir la popup
-            delay(1000)
-
-            // Appel api /login avec dans le body mon loginRequestData (donc email,password)
-            try {
-
-                val apiResponse = AuthService.AuthApi.authService.login(loginRequestData.value)
-
-                // Fermer la popup de chargement
-                AppDialogHelpers.get().closeDialog()
-
+        genericApiCall(
+            "Tentative de connexion en cours",
+            onExec = { AuthService.AuthApi.authService.login(loginRequestData.value) },
+            onFinish = { apiResponse ->
                 // Tester si OK : 200
                 if (apiResponse.code.equals("200")) {
+                    
                     // Stocker le token
                     AuthService.token = apiResponse.data!!
 
@@ -59,10 +49,7 @@ class AuthViewModel : ViewModel() {
                     // Afficher le message popup erreur
                     AppAlertDialogHelpers.get().show(apiResponse.message)
                 }
-            } catch (e: Exception) {
-                AppViewHelper.catchDialogHelper("Erreur inconnue")
-            }
-        }
+            })
     }
 
     fun callResetPasswordRequest() {
@@ -124,8 +111,7 @@ class AuthViewModel : ViewModel() {
                     AppAlertDialogHelpers.get().show(apiResponse.message, onClose = {
                         onSignUpSuccess()
                     })
-                }
-                else {
+                } else {
                     // Afficher le message popup error
                     AppAlertDialogHelpers.get().show(apiResponse.message)
                 }
